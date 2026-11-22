@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070c19" />
+  <meta name="description" content="COSMOS Studio: an interactive 3D universe sandbox, planet explorer, and orbital physics laboratory." />
+  <title>COSMOS — Explore the extraordinary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script type="importmap">
+  { "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  } }
+  </script>
+</head>
+<body>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <nav class="top-nav" aria-label="Main navigation">
+    <a class="logo" href="#home" aria-label="COSMOS homepage"><span class="logo-orbit">✦</span><span>COSMOS<span class="logo-dot">.</span></span></a>
+    <div class="nav-links"><a href="#home">Discover</a><a href="#simulation">Simulation</a><a href="#explore">Explore</a><a href="#lab">Physics Lab</a></div>
+    <a class="nav-launch" href="#simulation">Launch universe <span>↗</span></a>
+    <button class="mobile-menu" id="menuBtn" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  </nav>
+  <main>
+    <section id="home" class="hero-section">
+      <div class="hero-nebula" aria-hidden="true"></div>
+      <div class="hero-stars" aria-hidden="true"></div>
+      <div class="hero-world" aria-hidden="true"><div class="world-halo"></div><div class="world-sphere"></div></div>
+      <div class="hero-copy container">
+        <div class="eyebrow"><span class="eyebrow-line"></span> THE UNIVERSE IS YOURS TO EXPLORE</div>
+        <h1>BEYOND<br/><em>THE KNOWN.</em></h1>
+        <p>Step into a living universe. Explore breathtaking celestial worlds, experiment with gravity, and create your own cosmic story.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="#simulation">Enter the universe <span>↗</span></a><a class="btn btn-secondary" href="#explore">Explore planets <span>→</span></a></div>
+        <div class="hero-metrics"><div><strong>3D</strong><span>INTERACTIVE SPACE</span></div><div><strong>∞</strong><span>WORLDS TO IMAGINE</span></div><div><strong>LIVE</strong><span>PHYSICS ENGINE</span></div></div>
+      </div>
+      <div class="hero-bottom"><span>SCROLL TO DISCOVER</span><span>↓</span><span>01 / 04</span></div>
+    </section>
+
+    <section id="simulation" class="simulation-section section-padding">
+      <div class="container">
+        <div class="section-top"><div><div class="eyebrow eyebrow-muted">01 / THE EXPERIENCE</div><h2>Your universe.<br/><em>Your rules.</em></h2></div><p>Explore a fully interactive 3D system with live orbital physics. Select planets, change gravity, or launch new worlds into orbit.</p></div>
+        <div class="sim-shell" id="simShell">
+          <div class="sim-toolbar"><div class="sim-title"><span class="live-dot"></span><strong>UNIVERSE SANDBOX</strong><small>SIMULATION ACTIVE</small></div><div class="sim-toolbar-actions"><button class="mini-btn" id="resetBtn" title="Reset solar system">↺ <span>Reset</span></button><button class="mini-btn" id="pauseBtn" title="Pause or resume">Ⅱ <span>Pause</span></button><button class="mini-btn" id="fullscreenBtn" title="Fullscreen">⛶</button></div></div>
+          <div class="sim-viewport" id="simViewport" aria-label="Interactive 3D space simulation"><canvas id="universeCanvas"></canvas><div class="sim-overlay-top"><span class="tiny-label">COSMOS / LIVE SYSTEM</span><span class="tiny-label">DRAG TO ORBIT · SCROLL TO ZOOM</span></div><div class="sim-hint" id="simHint">Loading your universe…</div><div class="sim-selection"><span class="selection-dot"></span> OBSERVING: <strong id="selectedName">EARTH</strong></div></div>
+          <div class="sim-controls"><div class="control"><label for="speedRange">TIME SCALE <span id="speedValue">1.0×</span></label><input id="speedRange" type="range" min="0" max="4" step="0.1" value="1" /></div><div class="control"><label for="gravityRange">GRAVITY <span id="gravityValue">1.0×</span></label><input id="gravityRange" type="range" min="0" max="3" step="0.1" value="1" /></div><div class="control"><label for="massRange">SELECTED BODY MASS <span id="massValue">1.0×</span></label><input id="massRange" type="range" min="0.2" max="10" step="0.2" value="1" /></div><button class="btn btn-sm" id="addPlanetBtn">+ Add a planet</button></div>
+          <div class="sim-status"><span><i class="status-dot"></i> <span id="statusText">SIMULATION READY</span></span><span><span id="bodyCount">6</span> CELESTIAL BODIES</span><span>MODEL: SIMPLIFIED NEWTONIAN</span></div>
+        </div>
+        <div class="simulation-note">This is a stylized educational sandbox, not a precise model of our solar system. Distances, sizes, speeds, and collisions are intentionally scaled for exploration. Requires an internet connection to load Three.js.</div>
+      </div>
+    </section>
+
+    <section id="explore" class="explore-section section-padding">
+      <div class="container">
+        <div class="section-top"><div><div class="eyebrow eyebrow-muted">02 / THE CELESTIAL ATLAS</div><h2>Worlds beyond<br/><em>imagination.</em></h2></div><p>Discover the beauty and character of our neighboring worlds. Each one has a story written across billions of years.</p></div>
+        <div class="planet-tabs" role="tablist" aria-label="Choose a planet">
+          <button class="planet-tab active" data-planet="earth" role="tab" aria-selected="true">01 <span>EARTH</span></button>
+          <button class="planet-tab" data-planet="mars" role="tab" aria-selected="false">02 <span>MARS</span></button>
+          <button class="planet-tab" data-planet="jupiter" role="tab" aria-selected="false">03 <span>JUPITER</span></button>
+          <button class="planet-tab" data-planet="saturn" role="tab" aria-selected="false">04 <span>SATURN</span></button>
+          <button class="planet-tab" data-planet="neptune" role="tab" aria-selected="false">05 <span>NEPTUNE</span></button>
+        </div>
+        <div class="planet-feature"><div class="planet-visual"><div class="feature-sunflare"></div><div class="planet-art earth-art" id="planetArt"></div><span class="feature-coords">COSMOS / ATLAS · 001</span></div><div class="planet-info"><div class="eyebrow eyebrow-muted">CELESTIAL BODY / <span id="planetIndex">01</span></div><h3 id="planetTitle">Earth</h3><p id="planetSubtitle" class="planet-subtitle">The blue marble</p><p id="planetDescription">Our home: an ocean-covered world with a dynamic atmosphere, liquid water, and a remarkable diversity of life.</p><div class="planet-data"><div><small>AVERAGE DISTANCE FROM SUN</small><strong id="planetDistance">149.6 million km</strong></div><div><small>DIAMETER</small><strong id="planetDiameter">12,742 km</strong></div><div><small>YEAR LENGTH</small><strong id="planetYear">365.25 days</strong></div></div><button class="btn btn-secondary" id="focusPlanetBtn">Observe in simulation <span>↗</span></button></div></div>
+      </div>
+    </section>
+
+    <section id="lab" class="lab-section section-padding"><div class="container"><div class="section-top"><div><div class="eyebrow eyebrow-muted">03 / ORBITAL DYNAMICS</div><h2>The physics<br/><em>of possibility.</em></h2></div><p>Gravity shapes everything from falling objects to galaxies. Experiment with how mass, initial speed, and distance affect an orbit.</p></div><div class="lab-grid"><div class="lab-card"><div class="lab-card-top"><span class="lab-icon">◎</span><span class="eyebrow eyebrow-muted">EXPERIMENT 01</span></div><h3>Gravity</h3><p>Increase the star's gravitational pull. Existing orbits curve more strongly and may become unstable.</p><div class="lab-value">F ∝ <span>m₁m₂ / r²</span></div><button class="text-link" data-preset="gravity">Run experiment ↗</button></div><div class="lab-card"><div class="lab-card-top"><span class="lab-icon">➶</span><span class="eyebrow eyebrow-muted">EXPERIMENT 02</span></div><h3>Orbital velocity</h3><p>Give a new planet a faster sideways launch. Observe whether it stays bound or escapes into space.</p><div class="lab-value">v ≈ <span>√(GM/r)</span></div><button class="text-link" data-preset="velocity">Run experiment ↗</button></div><div class="lab-card"><div class="lab-card-top"><span class="lab-icon">✹</span><span class="eyebrow eyebrow-muted">EXPERIMENT 03</span></div><h3>Impact & collision</h3><p>Send an object toward the central star. Our simulation removes it after impact.</p><div class="lab-value">d ≤ <span>r₁ + r₂</span></div><button class="text-link" data-preset="collision">Run experiment ↗</button></div></div><div class="lab-footer"><span>LAB NOTE / All experiments use approximate, scaled parameters.</span><a href="#simulation">Return to simulator ↑</a></div></div></section>
+
+    <section class="closing-section"><div class="closing-glow"></div><div class="container closing-inner"><div class="eyebrow">THE JOURNEY IS JUST BEGINNING</div><h2>MAKE SPACE<br/><em>YOUR CANVAS.</em></h2><p>The universe is vast. Curiosity is limitless. Begin exploring.</p><a href="#simulation" class="btn btn-primary">Launch COSMOS <span>↗</span></a></div></section>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><a class="logo" href="#home"><span class="logo-orbit">✦</span>COSMOS<span class="logo-dot">.</span></a><span>CRAFTED FOR THE CURIOUS · EDUCATIONAL SIMULATION</span><span>© <span id="year"></span> COSMOS STUDIO</span></div></footer>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
